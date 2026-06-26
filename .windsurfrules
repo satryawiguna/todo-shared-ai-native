@@ -1,0 +1,11 @@
+# Todo Project — Windsurf Rules
+
+Repositori ini adalah basis pengetahuan dokumentasi untuk proyek Todo.
+Saat bekerja di frontend atau backend Todo:
+
+- `product/` — apa yang dibangun
+- `business/` — aturan domain
+- `architecture/` — desain sistem & kontrak API
+- `standards/` — konvensi coding
+- `diagrams/` — referensi visual
+- `prompts/` — template prompt AI

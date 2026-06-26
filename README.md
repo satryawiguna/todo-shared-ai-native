@@ -1,36 +1,36 @@
-# Todo App — Shared Context
+# Todo Project — Basis Pengetahuan AI-Native
 
-Repositori ini adalah **single source of truth** untuk seluruh konteks lintas-tim pada project Todo App.
-Dibaca oleh semua AI tools (GitHub Copilot, Claude, Cursor, Windsurf) via referensi di masing-masing repo.
+## Tentang Repositori Ini
+
+Repositori ini adalah **basis pengetahuan dokumentasi murni** untuk proyek Todo. Tidak ada kode di sini — hanya dokumentasi Markdown yang dapat dikonsumsi oleh alat AI (GitHub Copilot, Claude Code, Cursor, Windsurf) saat bekerja di repositori frontend atau backend.
 
 ## Struktur
 
 ```
-todo-shared-ai-native/
-├── product/          # Visi, requirements, user stories
-├── business/         # Business rules, glossary, permissions
-├── architecture/     # System design, API contracts
-├── standards/        # Git workflow, security guidelines
-├── diagrams/         # ERD, C4, sequence diagrams (coming soon)
-└── prompts/          # Reusable AI prompts lintas-repo
+todo-shared-ai-native-orchestration/
+├── product/          # Visi, roadmap, kebutuhan, user stories, kriteria acceptance
+├── business/         # Aturan bisnis, alur kerja, glosarium, matriks izin
+├── architecture/     # Desain sistem, bounded context, kontrak API, alur event
+├── standards/        # Konvensi coding, penamaan, git, keamanan, pengujian
+├── diagrams/         # ERD, diagram C4, diagram sequence (Mermaid)
+├── prompts/          # Template prompt AI yang dapat digunakan kembali
+└── docs/             # Dokumentasi tambahan
 ```
 
 ## Cara Menggunakan
 
-| AI Tool | Cara Menggunakan |
-|---------|-----------------|
-| **GitHub Copilot** | Direferensikan via `.github/copilot-instructions.md` di masing-masing repo |
-| **Claude** | Attach folder ini sebagai project knowledge |
-| **Cursor** | Tambahkan path folder ini di Cursor Settings > Docs |
-| **Windsurf** | Referensikan via `WINDSURF.md` di masing-masing repo |
+1. Clone repositori ini bersamaan dengan repositori frontend/backend
+2. Alat AI akan secara otomatis membaca `AGENTS.md` dan menavigasi ke dokumen yang relevan
+3. Atau, tambahkan sebagai Git submodule di repositori kode:
+   ```bash
+   git submodule add <url> docs/shared-context
+   ```
 
-## Repo Terkait
+## Stack Teknologi
 
-- `todo-frontend` — Next.js 14 + TypeScript + Tailwind + shadcn/ui
-- `todo-api` — Node.js + TypeScript + Express + MySQL
-
-## Aturan Kontribusi
-
-- Semua perubahan pada dokumen ini harus melalui Pull Request
-- Perubahan pada `architecture/api-contracts.md` wajib dikomunikasikan ke kedua repo
-- Gunakan Conventional Commits untuk commit message (lihat `standards/git-workflow.md`)
+| Komponen | Teknologi |
+|---|---|
+| Frontend | Next.js 15, TanStack React Query, Zustand, Axios, Tailwind CSS |
+| Backend | Nest.js, TypeORM, MySQL |
+| Package Manager | pnpm |
+| Deployment | Docker |

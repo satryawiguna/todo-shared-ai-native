@@ -1,0 +1,14 @@
+---
+alwaysApply: true
+description: "Repositori ini adalah basis pengetahuan dokumentasi untuk proyek Todo"
+---
+
+# Todo — Basis Pengetahuan Bersama
+
+Repositori ini berisi pengetahuan domain untuk aplikasi Todo. Saat bekerja di aplikasi Todo:
+
+1. Baca `product/` untuk apa yang dibangun dan kriteria acceptance
+2. Baca `business/` untuk aturan domain dan alur kerja
+3. Baca `architecture/` untuk desain sistem dan kontrak API
+4. Baca `standards/` untuk konvensi coding
+5. Gunakan template `prompts/` untuk interaksi AI terstruktur

@@ -1,23 +1,25 @@
-# Product Vision
+# Visi Produk
 
-## Problem Statement
-Individu dan tim kecil kesulitan mengelola tugas harian secara terstruktur
-tanpa alat yang terlalu kompleks.
+## Visi Satu Kalimat
 
-## Vision Statement
-Todo App adalah aplikasi manajemen tugas yang simpel, cepat, dan reliable —
-membantu pengguna fokus pada pekerjaan, bukan pada tools-nya.
+Aplikasi Todo sederhana namun lengkap yang membantu pengguna mengelola tugas sehari-hari dengan cepat dan intuitif, didukung oleh orkestrasi AI-native untuk pengembangan yang efisien.
 
-## Target Users
-- Solo developer / freelancer
-- Tim kecil (2–10 orang)
+## Target Pengguna
 
-## Success Metrics
-- Task completion rate > 70%
-- Time-to-first-task < 60 detik setelah registrasi
-- Uptime > 99.5%
+- **Individu** yang ingin mengelola daftar tugas pribadi
+- **Tim kecil** yang membutuhkan pelacakan tugas sederhana
 
-## Out of Scope (v1)
-- Fitur project management kompleks (Gantt, dependency antar task)
-- Real-time collaboration (akan dipertimbangkan v2)
-- Mobile native app
+## Proposisi Nilai Inti
+
+- **Simplicity first** — antarmuka bersih tanpa fitur berlebihan
+- **Cepat & responsif** — React Query untuk pengalaman real-time
+- **Dapat diandalkan** — validasi ketat, penanganan error yang baik
+
+## Metrik Keberhasilan
+
+| Metrik | Target |
+|---|---|
+| Waktu buat todo | < 3 detik dari klik sampai tersimpan |
+| Waktu muat daftar todo | < 1 detik untuk 100 todo |
+| Uptime API | 99.5% |
+| Cakupan tes | ≥ 80% |
