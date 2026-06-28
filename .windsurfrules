@@ -1,11 +1,17 @@
 # Todo Project — Windsurf Rules
 
 Repositori ini adalah basis pengetahuan dokumentasi untuk proyek Todo.
-Saat bekerja di frontend atau backend Todo:
+Saat bekerja di frontend atau backend Todo melalui **MCP server `todo-shared-context`**:
 
-- `product/` — apa yang dibangun
-- `business/` — aturan domain
-- `architecture/` — desain sistem & kontrak API
-- `standards/` — konvensi coding
-- `diagrams/` — referensi visual
-- `prompts/` — template prompt AI
+- **Baca dokumen yang relevan SEBELUM membuat kode apa pun**
+- Jika aturan bisnis bertentangan dengan pemahamanmu, **IKUTI dokumen**
+- Jika arsitektur atau kontrak API tidak jelas, **TANYA** — jangan berasumsi
+
+| Jika ingin tahu... | Baca... |
+|---|---|
+| **Apa yang dibangun & mengapa** | `product/` — visi, kebutuhan, user stories, kriteria acceptance |
+| **Aturan domain** | `business/` — aturan bisnis, alur kerja, glosarium |
+| **Desain sistem** | `architecture/` — gambaran sistem, kontrak API |
+| **Cara membangun** | `standards/` — coding, penamaan, git, keamanan, pengujian |
+| **Referensi visual** | `diagrams/` — ERD, diagram C4, diagram sequence |
+| **Template prompt AI** | `prompts/` — template untuk perencanaan fitur, review |

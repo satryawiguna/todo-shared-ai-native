@@ -26,7 +26,7 @@ flowchart TB
     end
 
     subgraph Code["Repositori Kode"]
-        FRONTEND["todo-app-ai-native-orchestration<br/>Next.js 15 Frontend"]
+        FRONTEND["todo-app-ai-native-orchestration<br/>Next.js 15 Monorepo<br/>(Dashboard + Landing Page)"]
         BACKEND["todo-api-ai-native-orchestration<br/>Nest.js Backend"]
     end
 

@@ -15,15 +15,19 @@
 Semua konfigurasi koneksi eksternal disimpan di environment variables:
 
 ```env
+# Environment
+NODE_ENV=local              # local | development | production
+PORT=5000                   # local:5000, dev:5001, prod:5002
+
 # Database
 DB_HOST=localhost
-DB_PORT=3306
+DB_PORT=3306                # 3307 untuk Docker dev, 3308 untuk prod
 DB_USERNAME=root
 DB_PASSWORD=secret
 DB_DATABASE=todo_db
 
-# CORS
-CORS_ORIGIN=http://localhost:3000
+# CORS (multiple origins, comma-separated)
+CORS_ORIGINS=http://localhost:3000,http://localhost:3001
 
 # Auth (v1)
 JWT_SECRET=your-jwt-secret

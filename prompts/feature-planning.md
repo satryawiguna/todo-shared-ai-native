@@ -4,7 +4,7 @@
 
 ---
 
-Baca dokumen berikut dari `todo-shared-ai-native-orchestration/`:
+Baca dokumen berikut dari **MCP server `todo-shared-context`** (GitHub: `satryawiguna/todo-shared-ai-native`):
 
 1. `product/requirements.md` — kebutuhan fungsional & non-fungsional
 2. `product/user-stories.md` — user stories terkait
@@ -19,7 +19,8 @@ Output yang diharapkan:
 
 1. **Ringkasan Fitur** — 2-3 kalimat deskripsi
 2. **File yang Terpengaruh** — daftar file yang perlu dibuat/diubah
-   - Frontend: `todo-app-ai-native-orchestration/`
+   - Frontend Dashboard: `todo-app-ai-native-orchestration/apps/dashboard`
+   - Frontend Landing Page: `todo-app-ai-native-orchestration/apps/landing-page`
    - Backend: `todo-api-ai-native-orchestration/`
 3. **Perubahan Model Data** — kolom/tabel baru (jika ada)
 4. **Perubahan API** — endpoint baru atau modifikasi

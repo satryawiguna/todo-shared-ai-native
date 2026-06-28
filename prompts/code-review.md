@@ -6,7 +6,7 @@
 
 Review kode berikut: **[FILE/PR]**
 
-Gunakan standar berikut sebagai acuan:
+Gunakan standar berikut sebagai acuan (baca dari **MCP server `todo-shared-context`**):
 
 1. `standards/coding-standards.md` — TypeScript, struktur file, error handling
 2. `standards/naming-conventions.md` — penamaan file, class, fungsi, variabel

@@ -4,7 +4,7 @@ Repositori ini berisi pengetahuan domain untuk aplikasi Todo. Ini adalah **sumbe
 
 ## Cara AI Menggunakan Repositori Ini
 
-Saat mengerjakan repositori frontend (`todo-app-ai-native-orchestration`) atau backend (`todo-api-ai-native-orchestration`), SELALU baca basis pengetahuan ini terlebih dahulu:
+Saat mengerjakan repositori frontend monorepo (`todo-app-ai-native-orchestration` — terdiri dari 2 aplikasi: **Dashboard** dan **Landing Page**) atau backend (`todo-api-ai-native-orchestration`), SELALU baca basis pengetahuan ini terlebih dahulu:
 
 | Jika ingin tahu... | Baca... |
 |---|---|

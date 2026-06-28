@@ -4,9 +4,13 @@
 
 ## Base URL
 
-```
-Development: http://localhost:3001
-```
+| Environment | URL | Cara Menjalankan |
+|---|---|---|
+| **local** | `http://localhost:5000` | Manual (`pnpm start:dev`) |
+| **development** | `http://localhost:5001` | Docker (`docker compose up`) |
+| **production** | `http://localhost:5002` | Docker (`docker compose -f compose.prod.yml up`) |
+
+> Port antar environment berbeda agar local dan Docker development dapat berjalan bersamaan tanpa konflik.
 
 ## Format Response Standar
 
@@ -39,6 +43,16 @@ Development: http://localhost:3001
   }
 }
 ```
+
+### Sukses — List (Non-Paginated)
+
+```json
+{
+  "data": [ /* array of todo objects */ ]
+}
+```
+
+> Hanya digunakan saat `page` & `limit` TIDAK disertakan di query. Server mengembalikan **maksimal 100 item** sebagai default safety limit. Gunakan paginasi untuk data lebih dari 100 item.
 
 ### Error
 
@@ -74,15 +88,17 @@ Development: http://localhost:3001
 
 | Param | Tipe | Default | Keterangan |
 |---|---|---|---|
-| `page` | number | 1 | Nomor halaman |
-| `limit` | number | 10 | Item per halaman (maks 50) |
+| `page` | number | — | Nomor halaman (opsional — tanpa ini response non-paginated) |
+| `limit` | number | — | Item per halaman, maks 50 (opsional — hanya berlaku jika `page` disertakan) |
 | `status` | string | — | Filter: `active`, `completed` |
 | `priority` | string | — | Filter: `low`, `medium`, `high` |
 | `search` | string | — | Cari berdasarkan judul (case-insensitive, partial match) |
 | `sort` | string | `createdAt` | Urutkan berdasarkan: `createdAt`, `updatedAt`, `title`, `priority` |
 | `order` | string | `DESC` | Arah urutan: `ASC`, `DESC` |
 
-**Response:** `200 OK`
+> **Aturan Dual Mode:** Jika `page` & `limit` disertakan → response dipaginasi (`{ data, meta }`). Jika TIDAK disertakan → response non-paginated (`{ data }`), maksimal 100 item.
+
+**Response (with pagination):** `200 OK`
 
 ```json
 {
@@ -103,6 +119,24 @@ Development: http://localhost:3001
     "total": 1,
     "totalPages": 1
   }
+}
+```
+
+**Response (without pagination):** `200 OK`
+
+```json
+{
+  "data": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "title": "Beli susu",
+      "description": "Di supermarket dekat rumah",
+      "status": "active",
+      "priority": "high",
+      "createdAt": "2026-06-26T10:00:00.000Z",
+      "updatedAt": "2026-06-26T10:00:00.000Z"
+    }
+  ]
 }
 ```
 
@@ -240,8 +274,8 @@ interface UpdateTodoDto {
 
 // Query
 interface TodoQueryParams {
-  page?: number;
-  limit?: number;
+  page?: number;         // optional — if provided with limit, response paginated
+  limit?: number;        // optional — only applies if page is provided, max 50
   status?: TodoStatus;
   priority?: TodoPriority;
   search?: string;
@@ -263,6 +297,10 @@ interface PaginatedResponse<T> {
     totalPages: number;
   };
 }
+
+// GET /todos response types
+type TodoListResponse = ApiResponse<Todo[]>;           // without pagination
+type TodoPaginatedResponse = PaginatedResponse<Todo>;  // with pagination
 
 interface ApiError {
   error: {

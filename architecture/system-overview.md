@@ -3,55 +3,114 @@
 ## Stack Teknologi
 
 ```
-┌─────────────────────────────────────────────────┐
-│                   Pengguna                       │
-│              (Browser / Laptop)                   │
-└─────────────────┬───────────────────────────────┘
-                  │ HTTPS
-                  ▼
-┌─────────────────────────────────────────────────┐
-│           Next.js 15 (Frontend)                  │
-│  • App Router + Server Components                │
-│  • TanStack React Query (server state)           │
-│  • Zustand (client state)                        │
-│  • Axios (HTTP client)                           │
-│  • Tailwind CSS (styling)                        │
-│  • Port: 3000                                    │
-└─────────────────┬───────────────────────────────┘
-                  │ HTTP / JSON
-                  ▼
-┌─────────────────────────────────────────────────┐
-│           Nest.js (Backend API)                  │
-│  • REST API                                      │
-│  • TypeORM + MySQL                               │
-│  • class-validator (DTO validation)              │
-│  • Swagger/OpenAPI docs                          │
-│  • Helmet, CORS, Rate Limiting                   │
-│  • Port: 3001                                    │
-└─────────────────┬───────────────────────────────┘
-                  │ TCP 3306
-                  ▼
-┌─────────────────────────────────────────────────┐
-│              MySQL 8 (Database)                   │
-│  • Tabel: todos                                  │
-│  • Soft delete support                           │
-│  • Port: 3306                                    │
-└─────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                         Pengguna                                 │
+│                   (Browser / Laptop)                             │
+└────────┬──────────────────────────────┬─────────────────────────┘
+         │                              │
+         ▼                              ▼
+┌────────────────────────┐   ┌────────────────────────┐
+│   Landing Page         │   │   Dashboard            │
+│   (Website Marketing)  │   │   (Aplikasi Utama)     │
+│   Next.js 15           │   │   Next.js 15           │
+│                        │   │                        │
+│   local     :3000      │   │   local     :3001      │
+│   dev       :3002      │   │   dev       :3003      │
+│   prod      :3004      │   │   prod      :3005      │
+└────────┬───────────────┘   └────────┬───────────────┘
+         │                             │
+         │        HTTP / JSON          │
+         └──────────┬──────────────────┘
+                    ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                Nest.js (Backend API)                             │
+│  • REST API  • TypeORM + MySQL  • class-validator               │
+│  • Swagger/OpenAPI  • Helmet, CORS, Rate Limiting               │
+│                                                                  │
+│  local :5000  │  dev :5001  │  prod :5002                       │
+└───────────────────────┬──────────────────────────────────────────┘
+                        │ TCP 3306 (local) / 3307 (dev) / 3308 (prod)
+                        ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                   MySQL 8 (Database)                             │
+│  • Tabel: todos  • Soft delete support                          │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+## Environment Matrix
+
+| Environment | Landing Page | Dashboard | Backend API | Database | Docker |
+|---|---|---|---|---|---|
+| **local** | `:3000` | `:3001` | `:5000` | `:3306` | ❌ Manual (`pnpm dev`) |
+| **development** | `:3002` | `:3003` | `:5001` | `:3307` | ✅ `docker compose up` |
+| **production** | `:3004` | `:3005` | `:5002` | `:3308` | ✅ `docker compose -f compose.prod.yml up` |
+
+> Port antar environment berbeda agar local (manual) dan development (Docker) dapat berjalan bersamaan tanpa konflik.
+
+## Frontend Monorepo Structure
+
+Frontend dibangun dengan **clean directory architecture** dan **monorepo** (Turborepo/Nx):
+
+```
+todo-app-ai-native-orchestration/
+├── apps/
+│   ├── dashboard/          # Next.js 15 — Aplikasi utama Todo
+│   │   ├── src/
+│   │   │   ├── app/        # App Router (Server Components)
+│   │   │   ├── components/ # UI components
+│   │   │   ├── hooks/      # Custom hooks (React Query, Zustand)
+│   │   │   ├── services/   # API client (Axios)
+│   │   │   └── types/      # TypeScript types (dari api-contracts.md)
+│   │   └── package.json
+│   └── landing-page/       # Next.js 15 — Website marketing
+│       ├── src/
+│       │   └── app/        # Static pages + SEO
+│       └── package.json
+└── packages/
+    └── shared/             # Shared types, utils, constants
+        └── src/
+            └── types/      # Todo types shared across apps
 ```
 
 ## Model Deployment
 
-Setiap komponen dijalankan via **Docker**:
+### Local (Manual — tanpa Docker)
 
-```yaml
-# docker-compose (development)
-services:
-  frontend:    # Next.js 15 — port 3000
-  backend:     # Nest.js — port 3001
-  database:    # MySQL 8 — port 3306
+```bash
+# Terminal 1: Backend API
+cd todo-api-ai-native-orchestration
+pnpm start:dev          # → http://localhost:5000
+
+# Terminal 2: Dashboard
+cd todo-app-ai-native-orchestration/apps/dashboard
+pnpm dev                # → http://localhost:3001
+
+# Terminal 3: Landing Page
+cd todo-app-ai-native-orchestration/apps/landing-page
+pnpm dev                # → http://localhost:3000
 ```
 
-Untuk production, frontend dan backend masing-masing memiliki `Dockerfile` multi-stage sendiri.
+### Development & Production (Docker)
+
+```yaml
+# compose.yml (development)
+services:
+  landing-page:   # Next.js — port 3002
+  dashboard:      # Next.js — port 3003
+  backend:        # Nest.js — port 5001
+  database:       # MySQL 8 — port 3307
+```
+
+```yaml
+# compose.prod.yml (production)
+services:
+  landing-page:   # Next.js — port 3004
+  dashboard:      # Next.js — port 3005
+  backend:        # Nest.js — port 5002
+  database:       # MySQL 8 — port 3308
+```
+
+Setiap service memiliki `Dockerfile` multi-stage sendiri untuk build yang optimal.
 
 ## Aliran Data
 

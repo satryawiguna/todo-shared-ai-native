@@ -4,7 +4,7 @@
 
 ---
 
-Bandingkan implementasi saat ini dengan dokumen arsitektur dan standar berikut:
+Bandingkan implementasi saat ini dengan dokumen arsitektur dan standar berikut (baca dari **MCP server `todo-shared-context`**):
 
 1. `architecture/system-overview.md` — gambaran sistem
 2. `architecture/api-contracts.md` — kontrak API
