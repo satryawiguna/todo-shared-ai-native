@@ -6,7 +6,7 @@
 ┌──────────────────────────────────────────────────────────────────┐
 │                         Pengguna                                 │
 │                   (Browser / Laptop)                             │
-└────────┬──────────────────────────────┬─────────────────────────┘
+└────────┬──────────────────────────────┬──────────────────────────┘
          │                              │
          ▼                              ▼
 ┌────────────────────────┐   ┌────────────────────────┐
@@ -17,23 +17,24 @@
 │   local     :3000      │   │   local     :3001      │
 │   dev       :3002      │   │   dev       :3003      │
 │   prod      :3004      │   │   prod      :3005      │
-└────────┬───────────────┘   └────────┬───────────────┘
+└────────┬───────────────┘   └─────────┬──────────────┘
          │                             │
          │        HTTP / JSON          │
          └──────────┬──────────────────┘
                     ▼
 ┌──────────────────────────────────────────────────────────────────┐
 │                Nest.js (Backend API)                             │
-│  • REST API  • TypeORM + MySQL  • class-validator               │
-│  • Swagger/OpenAPI  • Helmet, CORS, Rate Limiting               │
+│  • REST API  • TypeORM + MySQL  • class-validator                │
+│  • Swagger/OpenAPI  • Helmet, CORS, Rate Limiting                │
 │                                                                  │
-│  local :5000  │  dev :5001  │  prod :5002                       │
+│  local :5000  │  dev :5001  │  prod :5002                        │
 └───────────────────────┬──────────────────────────────────────────┘
-                        │ TCP 3306 (local) / 3307 (dev) / 3308 (prod)
+                        │ TCP :3306 — local MySQL | AWS RDS :3306 (todo_dev / todo_prod)
                         ▼
 ┌──────────────────────────────────────────────────────────────────┐
 │                   MySQL 8 (Database)                             │
-│  • Tabel: todos  • Soft delete support                          │
+│  • Tabel: todos  • Soft delete support                           │
+│  • local: MySQL lokal  • dev/prod: AWS RDS (1 instance)          │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -41,11 +42,11 @@
 
 | Environment | Landing Page | Dashboard | Backend API | Database | Docker |
 |---|---|---|---|---|---|
-| **local** | `:3000` | `:3001` | `:5000` | `:3306` | ❌ Manual (`pnpm dev`) |
-| **development** | `:3002` | `:3003` | `:5001` | `:3307` | ✅ `docker compose up` |
-| **production** | `:3004` | `:3005` | `:5002` | `:3308` | ✅ `docker compose -f compose.prod.yml up` |
+| **local** | `:3000` | `:3001` | `:5000` | `:3306` — `todo_db` (MySQL lokal) | ❌ Manual (`pnpm dev`) |
+| **development** | `:3002` | `:3003` | `:5001` | `:3306` — `todo_dev` (AWS RDS, user: `root_dev`) | ✅ `docker compose up` |
+| **production** | `:3004` | `:3005` | `:5002` | `:3306` — `todo_prod` (AWS RDS, user: `root`) | ✅ `docker compose -f compose.prod.yml up` |
 
-> Port antar environment berbeda agar local (manual) dan development (Docker) dapat berjalan bersamaan tanpa konflik.
+> Port antar environment berbeda agar local (manual) dan development (Docker) dapat berjalan bersamaan tanpa konflik. Database dev dan prod menggunakan 1 AWS RDS instance dengan database berbeda.
 
 ## Frontend Monorepo Structure
 
@@ -98,7 +99,7 @@ services:
   landing-page:   # Next.js — port 3002
   dashboard:      # Next.js — port 3003
   backend:        # Nest.js — port 5001
-  database:       # MySQL 8 — port 3307
+  # Database tidak di-Docker — pakai AWS RDS (db: todo_dev, user: root_dev, port: 3306)
 ```
 
 ```yaml
@@ -107,7 +108,7 @@ services:
   landing-page:   # Next.js — port 3004
   dashboard:      # Next.js — port 3005
   backend:        # Nest.js — port 5002
-  database:       # MySQL 8 — port 3308
+  # Database tidak di-Docker — pakai AWS RDS (db: todo_prod, user: root, port: 3306)
 ```
 
 Setiap service memiliki `Dockerfile` multi-stage sendiri untuk build yang optimal.

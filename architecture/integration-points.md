@@ -20,11 +20,11 @@ NODE_ENV=local              # local | development | production
 PORT=5000                   # local:5000, dev:5001, prod:5002
 
 # Database
-DB_HOST=localhost
-DB_PORT=3306                # 3307 untuk Docker dev, 3308 untuk prod
-DB_USERNAME=root
+DB_HOST=localhost            # dev/prod: AWS RDS endpoint
+DB_PORT=3306
+DB_USERNAME=root             # dev: root_dev
 DB_PASSWORD=secret
-DB_DATABASE=todo_db
+DB_DATABASE=todo_db          # dev: todo_dev, prod: todo_prod
 
 # CORS (multiple origins, comma-separated)
 CORS_ORIGINS=http://localhost:3000,http://localhost:3001
